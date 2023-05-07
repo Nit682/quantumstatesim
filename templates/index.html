@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quantum State Animation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body, html {
+        height: 100%;
+        background-image: url('https://cosmosmagazine.com/wp-content/uploads/2019/12/290216_quantum_P.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .container {
+        height: 100%;
+      }
+
+      .centered-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+        border-radius: 5px;
+      }
+
+      .scrollable-info-message {
+        max-height: 100px;
+        overflow-y: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container d-flex align-items-center justify-content-center">
+      <div class="centered-content text-center">
+        <h1 class="mb-4">Quantum State Animation</h1>
+        <div class="scrollable-info-message">
+          <p class="text-info mb-4">
+            This tool simulates the evolution of a quantum state over time using 
+            random unitary matrices. In quantum mechanics, a quantum state represents 
+            the probability distribution of possible measurement outcomes of a quantum 
+            system. The evolution of a quantum state is governed by the Schrödinger 
+            equation, which is a fundamental equation of quantum mechanics. In this 
+            simulation, the quantum state is represented as a vector of complex 
+            coefficients, and each element of the vector corresponds to the 
+            probability amplitude of a particular quantum state. By applying random 
+            unitary matrices to the quantum state, we can simulate the evolution of 
+            the system over time. This tool uses the Python programming language to 
+            simulate the evolution of a quantum state over time. The simulation 
+            algorithm is implemented using the NumPy library, which provides a 
+            powerful set of tools for working with multi-dimensional arrays and 
+            matrices. In addition, the Matplotlib library is used to generate 
+            visualizations of the quantum state over time, and the PIL library is 
+            used to convert these visualizations into GIF animations. Finally, the 
+            Flask web framework is used to create a web application that allows users 
+            to interactively input quantum states and view the resulting animations in 
+            real-time.
+          </p>
+        </div>
+        <form id="quantumStateForm" class="form-inline justify-content-center mb-4">
+          <div class="form-group">
+            <label for="quantumStateInput" class="mr-2">Enter quantum state:</label>
+            <input 
+              type="text" 
+              id="quantumStateInput" 
+              name="quantumStateInput" 
+              class="form-control"
+              required
+              placeholder="e.g. 0.707+0j, 0.707+0j"
+            >
+          </div>
+          <button type="submit" id="formSubmitButton" class="btn btn-primary ml-2">Simulate</button>
+        </form>
+        <img id="animation" class="img-fluid mx-auto d-block" alt="Animated GIF">
+      </div>
+    </div>
+    <script>
+      const quantumStateForm = document.getElementById('quantumStateForm');
+      const quantumStateInput = document.getElementById('quantumStateInput');
+      const formSubmitButton = document.getElementById('formSubmitButton');
+      const animation = document.getElementById('animation');
+
+      quantumStateForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const quantumStateEncoded = encodeURIComponent(quantumStateInput.value);
+        const url = `/display_animation?quantum_state=${quantumStateEncoded}`;
+        formSubmitButton.disabled = true;
+        quantumStateInput.disabled = true;
+        animation.setAttribute('src', url);
+        animation.addEventListener('load', () => {
+          formSubmitButton.disabled = false;
+          quantumStateInput.disabled = false;
+        });
+      });
+    </script>
+  </body>
+</html>
