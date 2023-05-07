@@ -19,3 +19,7 @@ used to convert these visualizations into GIF animations. Finally, the
 Flask web framework is used to create a web application that allows users 
 to interactively input quantum states and view the resulting animations in 
 real-time.
+
+1. `git clone https://github.com/Nit682/quantumstatesim.git`
+2. `pip install -r requirements.txt`
+3. `python app.py`
